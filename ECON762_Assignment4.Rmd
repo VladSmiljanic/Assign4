@@ -1,0 +1,70 @@
+---
+title: "ECON 762 Assignment 4"
+output: html_notebook
+---
+
+###Question 1
+
+**a. Robustness**
+
+Robustness is the ability to resist the injection of bad data values. An estimator should respond to these small number of bad data values with smoothness. That is to say, it should only respond gradually to the injection of bad data values or small changes in the model. A robust estimator should have broad application for it to be consider useful.
+
+**b. Masking**
+
+When outliers exist, using a non-robust method may result in the outliers going undetected due to the interaction of the method with the outliers. 
+
+**c. Sensitivity Curve and Influence Curve**
+
+Sensitivity curve displays whether an estimator is bounded when an outlier is inputted into the sample data. The outlier can be a range of $\pm \infty$ and if this helps us determine the robustness of an estimator. An unbounded sensitivity curve is undesired.
+
+
+
+**d. Finite-Sample Breakdown Point**
+
+
+
+**e. Huber (1964) M-Estimator**
+
+
+
+###Question 2
+
+
+
+###Question 3
+
+```{r}
+set.seed(42)
+n <- 100
+x <- runif(n)
+beta1 <- 1
+beta2 <- 2
+epsilon <- rnorm(n,sd=.1)
+y <- beta1 + beta2*x + epsilon
+model <- lm(y~x)
+coef.sample<-coef(model)[2]
+
+n.e0<-100
+e0 <- seq(-1000,1000,length=n.e0)
+sc.coef <- numeric(n.e0)
+for(i in 1:n.e0) {
+  e.augmented <- c(epsilon[1:99],e0[i])
+  y <- beta1 + beta2*x + e.augmented
+  sc.coef[i] <- coef(lm(y~x))[2]-coef.sample
+}
+
+## Sensitivity curve for the sample coef
+plot(e0, sc.coef,
+     ylab="Bias in coef()",
+     xlab="$e_0$",
+     type="l")
+```
+
+###Question 4
+
+###Question 5
+
+###Question 6
+
+###Question 7
+
