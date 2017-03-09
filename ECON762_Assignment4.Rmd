@@ -15,17 +15,44 @@ When outliers exist, using a non-robust method may result in the outliers going 
 
 **c. Sensitivity Curve and Influence Curve**
 
-Sensitivity curve displays whether an estimator is bounded when an outlier is inputted into the sample data. The outlier can be a range of $\pm \infty$ and if this helps us determine the robustness of an estimator. An unbounded sensitivity curve is undesired.
+Sensitivity curve displays whether an estimator is bounded when an outlier is inputted into the sample data. The outlier can be an arbitrary number within a range of $\pm \infty$ and will help us determine the robustness of an estimator. An unbounded sensitivity curve is undesired as it results in a non-robust estimator.
 
+The influence function of an estimator is the asymptotic verson of the sensitivity curve. It is the approximation of an estimator as $n\to\infty$ when a small fraction of the sample , $\epsilon$, is identical outliers. A contamination neighbourhood that is a convex combination of the distribution used to produce the the asymptotic value of the estimator and a point mass at $x_0$. The influence function is the limit of the fraction of the convex distribution that is based on this point mass, as we approach the fraction from the right (ie $\epsilon >0$).
 
+\begin{align*}
+IF_{\hat\theta}(x_0,F)&=\lim_{\epsilon\downarrow0}\frac{\hat\theta_\infty\left((1-\epsilon)
+F+\epsilon\delta_{x_0}\right)-\hat\theta_\infty(F)}{\epsilon}\\
+\end{align*}
+
+It may be conisdered the limit version of the sensitivity curve.
 
 **d. Finite-Sample Breakdown Point**
 
+The point at which including one additional 'corrupted' data point into a sample will result in the bias between the corrupted and uncorrupted samples to go to infinity. 
 
+X is our sample and X' is our corrupted sample when replacing $m$ data points with arbitratary values (including $\pm \infty$ to ecompass extreme values). If our estimator $\hat \theta = f(X)$ then our finite-sampling breakdown point is:
+
+\begin{align*}
+\min\left\{\frac{m}{n};\hbox{bias}(m;f(X'),X)
+    \hbox{ is infinite}\right\}
+\end{align*}
+
+When m=1, our breakdown point would be zero. Injecting one data point with an arbitrary value would have a large effect on $\hat \theta$ and cause the estimator to `break down`. The highest possible breakdown point is is one less then half the sample size or a breakdown point of 50%. 
 
 **e. Huber (1964) M-Estimator**
 
+Where estimating the median through the minimizing the absolute values provides for a robust (bounded) estimator it is not efficient due to discontunity problems at $\mu = 0$.The variance of the median is much higher than that of the mean and especially if no outliers present. As a result, the M-Estimator was proposed to combat this problem. It has the functional form:
 
+\begin{align*}
+\label{huber rho_c}
+\rho_c(\mu)=\left\{\begin{array}{ll}
+\mu^2&\text{ if } |\mu|\le c\\
+2c|\mu|-c^2&\text{ if } |\mu|> c
+\end{array}
+\right..
+\end{align*}
+
+Where c will be the resistence parameter that is specified by the user. As $c\to 0$, the efficiency of the estimator decreases. The rule-of-thumb is $c=1.345\times s$ where s a robust measure of scale. This would allow the efficiency is almost as good as mean (905%) while also being robust.
 
 ###Question 2
 
