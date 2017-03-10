@@ -15,7 +15,7 @@ When outliers exist, using a non-robust method may result in the outliers going 
 
 **c. Sensitivity Curve and Influence Curve**
 
-Sensitivity curve displays whether an estimator is bounded when an outlier is inputted into the sample data. The outlier can be an arbitrary number within a range of $\pm \infty$ and will help us determine the robustness of an estimator. An unbounded sensitivity curve is undesired as it results in a non-robust estimator.
+Sensitivity curve displays whether an estimator is bounded when an outlier is inputted into the sample data. It displays the bias of the statistic when "bad data" is injected into the sample. The outlier can be an arbitrary number within a range of $\pm \infty$ and will help us determine the robustness of an estimator. An unbounded sensitivity curve is undesired as it results in a non-robust estimator. 
 
 The influence function of an estimator is the asymptotic verson of the sensitivity curve. It is the approximation of an estimator as $n\to\infty$ when a small fraction of the sample , $\epsilon$, is identical outliers. A contamination neighbourhood that is a convex combination of the distribution used to produce the the asymptotic value of the estimator and a point mass at $x_0$. The influence function is the limit of the fraction of the convex distribution that is based on this point mass, as we approach the fraction from the right (ie $\epsilon >0$).
 
@@ -56,9 +56,11 @@ Where c will be the resistence parameter that is specified by the user. As $c\to
 
 ###Question 2
 
-
+a) The finite sample breakdown point 
 
 ###Question 3
+
+a)
 
 ```{r}
 set.seed(42)
@@ -87,7 +89,100 @@ plot(e0, sc.coef,
      type="l")
 ```
 
+b) The key feature of the sensitivity curve is to help determine the robustness of an estimation method. We wish to have boundness in the sensitivity curve to determine if the estimator is robust and can handle injection of arbtirary data values. The OLS estimator has a sensitivity curve that is linear when injecting $x0$ over the pre-determined interval. This shows that our bias will go to infinity if we inject a data value of infinity. The OLS estimator is a non-robust estimator.
+
+We should care because outliers can effect our estimator by large magintudes and producing a method where there is little confidence in the estimator.
+
 ###Question 4
+
+a)
+```{r}
+set.seed(42)
+require(robustbase)
+n <- 100
+x<-rnorm(n)
+mean.x<-mean(x)
+med.x<-median(x)
+sd.x<-sd(x)
+iqr.x<-IQR(x)
+mad.x<-mad(x)
+q.x<-Qn(x)
+```
+
+b)
+```{r}
+x0<-seq(from=-10,to=10,by=1)
+
+vec.mean<-numeric(length(x0))
+vec.med<-numeric(length(x0))
+vec.sd<-numeric(length(x0))
+vec.iqr<-numeric(length(x0))
+vec.mad<-numeric(length(x0))
+vec.q<-numeric(length(x0))
+
+for (i in 1:length(x0)){
+  x[101]<-x0[i]
+  vec.mean[i]<-mean(x)-mean.x
+  vec.med[i]<-median(x)-med.x
+  vec.sd[i]<-sd(x)-sd.x
+  vec.iqr[i]<-IQR(x)-iqr.x
+  vec.mad[i]<-mad(x)-mad.x
+  vec.q[i]<-Qn(x)-q.x
+}
+
+par(mfrow=c(2,3))
+plot(x0,vec.mean,type="l")
+plot(x0,vec.med,type="l")
+plot(x0,vec.sd,type="l")
+plot(x0,vec.iqr,type="l")
+plot(x0,vec.mad,type="l")
+plot(x0,vec.q,type="l")
+```
+
+c)
+
+```{r}
+set.seed(42)
+require(robustbase)
+n <- 20
+x<-rnorm(n)
+mean.x<-mean(x)
+med.x<-median(x)
+sd.x<-sd(x)
+iqr.x<-IQR(x)
+mad.x<-mad(x)
+q.x<-Qn(x)
+
+x0<-1000
+
+vec.mean<-numeric()
+vec.med<-numeric()
+vec.sd<- numeric()
+vec.iqr<-numeric()
+vec.mad<-numeric()
+vec.q<-numeric()
+
+for (i in 1:10){
+  for (j in 1:i){
+    x[j]<-x0
+  }
+  vec.mean[i]<-mean(x)
+  vec.med[i]<-median(x)
+  vec.sd[i]<-sd(x)
+  vec.iqr[i]<-IQR(x)
+  vec.mad[i]<-mad(x)
+  vec.q[i]<-Qn(x)
+}
+
+values<-data.frame(seq(1,10,by=1),vec.mean,vec.med,vec.sd,vec.iqr,vec.mad,vec.q)
+
+colnames(values)<-c("M","Mean","Median","Standard Deviation","IQR","MAD","Q")
+
+knitr::kable(values)
+```
+
+d)
+
 
 ###Question 5
 
