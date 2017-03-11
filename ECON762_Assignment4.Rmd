@@ -188,5 +188,53 @@ d)
 
 ###Question 6
 
+The hat matrix H gives the fitted value of Y: $\hat Y = HY$. Our $X$ is a $n\times k$ matrix.
+
+\begin{align*}
+H&=X(X'X)^{-1}X'\\
+HY&=X(X'X)^{-1}X'Y\\
+HY&=X\hat\beta\\
+HY&=\hatY\\
+\end{align*}
+
+The trace of the H matrix requires knowledge of the properties for finding the trace of a matrix:
+
+\begin{align*}
+tr(ABC) = tr(BAC) = tr(CBA)\\
+\end{align*}
+
+The trace of a matrix is the sum of the diagonals.
+
+\begin{align*}
+tr(X(X'X)^{-1}X') &= tr((X'X)^{-1}X'X)\\
+tr(I_k)&=k
+\end{align*}
+
+An element of an H matrix is defined as $h_{ij}$. Since the trace of a matrix is the sum of diagonals, we can show that $\bar h = k/n$.
+
+\begin{align*}
+tr(H) &= \sum^k_{i=1} h_{ii} = k\\
+\frac{1}{n}\sum^n_{i=1} h_{ii} &= \frac{1}{n}\bar h = \frac{k}{n}\\
+\end{align*}
+
+A hat matrix is symmetric and idempotent. We know that the property of an idempotent is that the a diagonal matrix is the squared sum of columns of the row the element is on. As a result of this property, this value will be $\ge 0$:
+
+\begin{align*}
+h_{ii} = \sum^n_{j=1} h^2_{ij} \ge 0 \\
+\end{align*}
+
+By decomposing the summation into diagonal and non-diagonal terms and dividing by $h_{ii}$, we can show that each diagonal matrix is $\le 0$:
+
+\begin{align*}
+\frac{h_{ii} }{h_{ii}}&= \frac{1}{h_{ii}}(h_{ii}^2+\sum_{j=1,j\ne i}^n h_{ij}^2)\\
+1 &= h_{ii}+\frac{\sum_{j=1,j\ne i}^n h_{ij}^2}{h_{ii}} \\
+h_{ii}&= 1 - \frac{\sum_{j=1,j\ne i}^n h_{ij}^2}{h_{ii}} \\
+h_{ii}\le 1 \\
+\end{align*}
+
+Therefore, $0 \le h_{ii} \le 1$.
+
+b)
+
 ###Question 7
 
