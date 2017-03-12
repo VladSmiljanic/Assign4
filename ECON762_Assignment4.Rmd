@@ -1,6 +1,10 @@
 ---
 title: "ECON 762 Assignment 4"
-output: html_notebook
+output:
+  html_document: default
+  html_notebook: default
+  pdf_document: default
+  word_document: default
 ---
 
 ###Question 1
@@ -96,6 +100,7 @@ We should care because outliers can effect our estimator by large magintudes and
 ###Question 4
 
 a)
+
 ```{r}
 set.seed(42)
 require(robustbase)
@@ -110,18 +115,30 @@ q.x<-Qn(x)
 ```
 
 b)
+
 ```{r}
-x0<-seq(from=-10,to=10,by=1)
+set.seed(42)
+require(robustbase)
+n <- 100
+x<-rnorm(n)
+x0.seq<-seq(from=-10,to=10,by=1)
 
-vec.mean<-numeric(length(x0))
-vec.med<-numeric(length(x0))
-vec.sd<-numeric(length(x0))
-vec.iqr<-numeric(length(x0))
-vec.mad<-numeric(length(x0))
-vec.q<-numeric(length(x0))
+mean.x<-mean(x)
+med.x<-median(x)
+sd.x<-sd(x)
+iqr.x<-IQR(x)
+mad.x<-mad(x)
+q.x<-Qn(x)
 
-for (i in 1:length(x0)){
-  x[101]<-x0[i]
+vec.mean<-numeric()
+vec.med<-numeric()
+vec.sd<-numeric()
+vec.iqr<-numeric()
+vec.mad<-numeric()
+vec.q<-numeric()
+
+for (i in 1:length(x0.seq)){
+  x[101]<-x0.seq[i]
   vec.mean[i]<-mean(x)-mean.x
   vec.med[i]<-median(x)-med.x
   vec.sd[i]<-sd(x)-sd.x
@@ -131,12 +148,12 @@ for (i in 1:length(x0)){
 }
 
 par(mfrow=c(2,3))
-plot(x0,vec.mean,type="l")
-plot(x0,vec.med,type="l")
-plot(x0,vec.sd,type="l")
-plot(x0,vec.iqr,type="l")
-plot(x0,vec.mad,type="l")
-plot(x0,vec.q,type="l")
+plot(x0.seq,vec.mean,type="l")
+plot(x0.seq,vec.med,type="l")
+plot(x0.seq,vec.sd,type="l")
+plot(x0.seq,vec.iqr,type="l")
+plot(x0.seq,vec.mad,type="l")
+plot(x0.seq,vec.q,type="l")
 ```
 
 c)
@@ -163,9 +180,7 @@ vec.mad<-numeric()
 vec.q<-numeric()
 
 for (i in 1:10){
-  for (j in 1:i){
-    x[j]<-x0
-  }
+  x[1:i]<-x0
   vec.mean[i]<-mean(x)
   vec.med[i]<-median(x)
   vec.sd[i]<-sd(x)
@@ -183,8 +198,40 @@ knitr::kable(values)
 
 d)
 
+```{r}
+set.seed(42)
+require(robustbase)
+n <- 20
+x<-rnorm(n)
+
+x0<-1000
+
+for (i in 1:5){
+  x[1:i]<-x0
+  t.t<-(x-mean(x))/sd(x)
+  print(subset(x,abs(t.t)>3.0))
+  t.r<-(x-median(x))/mad(x)
+  print(subset(x,abs(t.r)>3.0))
+}
+
+
+```
 
 ###Question 5
+
+a) A box and whisker plot is a method that defines what points would be considered outliers and displays the median, interquartile range, the boundary for outliers and the outliers themselves. It defines 
+
+```{r}
+n <- 20
+x<-rnorm(n)
+
+boxplot(x)
+}
+```
+
+The thick line is the median of the distribution while the top and bottom of the "box" are quartiles $Q_1$ and $Q_1$. The "whiskers" are the farthest points that are not outliers. Here they are defined as values within $(3/2)\times Q$. The points are data values that lie outside of the whiskers and values that are the same would be placed next to each other horizontally. 
+
+b) 
 
 ###Question 6
 
