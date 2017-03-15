@@ -19,9 +19,9 @@ When outliers exist, using a non-robust method may result in the outliers going 
 
 **c. Sensitivity Curve and Influence Curve**
 
-Sensitivity curve displays whether an estimator is bounded when an outlier is inputted into the sample data. It displays the bias of the statistic when "bad data" is injected into the sample. The outlier can be an arbitrary number within a range of $\pm \infty$ and will help us determine the robustness of an estimator. An unbounded sensitivity curve is undesired as it results in a non-robust estimator. 
+Sensitivity curve displays whether an estimator is bounded when an outlier is inputted into the sample data. It displays the bias of the statistic when "bad data" is injected into the sample. The outlier can be an arbitrary number within a range of $\pm \infty$ and will help us determine the robustness of an estimator. An unbounded sensitivity curve is undesired as it reveals a non-robust estimator. 
 
-The influence function of an estimator is the asymptotic verson of the sensitivity curve. It is the approximation of an estimator as $n\to\infty$ when a small fraction of the sample , $\epsilon$, is identical outliers. A contamination neighbourhood that is a convex combination of the distribution used to produce the the asymptotic value of the estimator and a point mass at $x_0$. The influence function is the limit of the fraction of the convex distribution that is based on this point mass, as we approach the fraction from the right (ie $\epsilon >0$).
+The influence function of an estimator is the asymptotic verson of the sensitivity curve. It is the approximation of an estimator as $n\to\infty$ when a small fraction of the sample , $\epsilon$, are identical outliers. A contamination neighbourhood is a convex combination of the distribution used to produce the the asymptotic value of the estimator and a point mass at $x_0$. The influence function is the limit of the fraction of the convex distribution that is based on this point mass, as we approach the fraction from the right (ie $\epsilon >0$).
 
 \begin{align*}
 IF_{\hat\theta}(x_0,F)&=\lim_{\epsilon\downarrow0}\frac{\hat\theta_\infty\left((1-\epsilon)
@@ -32,7 +32,7 @@ It may be conisdered the limit version of the sensitivity curve.
 
 **d. Finite-Sample Breakdown Point**
 
-The point at which including one additional 'corrupted' data point into a sample will result in the bias between the corrupted and uncorrupted samples to go to infinity. 
+The point at which including one additional 'corrupted' data point into a sample will result in the bias between the corrupted and uncorrupted samples go to infinity. 
 
 X is our sample and X' is our corrupted sample when replacing $m$ data points with arbitratary values (including $\pm \infty$ to ecompass extreme values). If our estimator $\hat \theta = f(X)$ then our finite-sampling breakdown point is:
 
@@ -41,7 +41,7 @@ X is our sample and X' is our corrupted sample when replacing $m$ data points wi
     \hbox{ is infinite}\right\}
 \end{align*}
 
-When m=1, our breakdown point would be zero. Injecting one data point with an arbitrary value would have a large effect on $\hat \theta$ and cause the estimator to `break down`. The highest possible breakdown point is is one less then half the sample size or a breakdown point of 50%. 
+When m=1, our breakdown point would be zero. Injecting one data point with an arbitrary value would have a large effect on $\hat \theta$ and cause the estimator to `break down`. The highest possible breakdown point is is one less than half the sample size or a breakdown point of 50%. 
 
 **e. Huber (1964) M-Estimator**
 
@@ -60,7 +60,9 @@ Where c will be the resistence parameter that is specified by the user. As $c\to
 
 ###Question 2
 
-a) The finite sample breakdown point 
+a) The finite sample breakdown point for the inter-quartile range would be $m=n/4-1$ and will have a breakdown point of 25% (expressed in the limi $n\to\infty$). As the inter-quartile range is the 75% quartile minues the 25% quartile, injecting a quarter of the sample with bad data will breach at least one point in the inter-quartile ranging, causing the bias to go to infinity. The interquartile range will have a breakdown point of 25%. Intuitively, it make senses because if we inject $m$ values that are less than 25% of the sample, they might all end up in the 25% quartile or above the 75% quartile, avoiding any bad data in the interquartile. A breakdown point of 25% would mean at least one bad data point would end up in the interquartile range.
+
+b) 
 
 ###Question 3
 
@@ -95,7 +97,7 @@ plot(e0, sc.coef,
 
 b) The key feature of the sensitivity curve is to help determine the robustness of an estimation method. We wish to have boundness in the sensitivity curve to determine if the estimator is robust and can handle injection of arbtirary data values. The OLS estimator has a sensitivity curve that is linear when injecting $x0$ over the pre-determined interval. This shows that our bias will go to infinity if we inject a data value of infinity. The OLS estimator is a non-robust estimator.
 
-We should care because outliers can effect our estimator by large magintudes and producing a method where there is little confidence in the estimator.
+We should care because outliers can effect our estimator by large magnitudes and producing a method where there is little confidence in the estimator.
 
 ###Question 4
 
