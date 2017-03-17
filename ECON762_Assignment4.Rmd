@@ -60,10 +60,18 @@ Where c will be the resistence parameter that is specified by the user. As $c\to
 
 ###Question 2
 
-a) The finite sample breakdown point for the inter-quartile range would be $m=n/4-1$ and will have a breakdown point of 25% (expressed in the limi $n\to\infty$). As the inter-quartile range is the 75% quartile minues the 25% quartile, injecting a quarter of the sample with bad data will breach at least one point in the inter-quartile ranging, causing the bias to go to infinity. The interquartile range will have a breakdown point of 25%. Intuitively, it make senses because if we inject $m$ values that are less than 25% of the sample, they might all end up in the 25% quartile or above the 75% quartile, avoiding any bad data in the interquartile. A breakdown point of 25% would mean at least one bad data point would end up in the interquartile range.
+a) The finite sample breakdown point for the inter-quartile range would be $m=n/4-1$ and will have a breakdown point of 25% (expressed in the limit $n\to\infty$). Due to the ranked order nature of calculating the interquartile range, values that are $\pm \infty$ will fall outside of the interquartile range. As the inter-quartile range is the 75% quartile minues the 25% quartile, injecting a quarter of the sample with bad data will breach at least one point in the inter-quartile range, causing the bias to go to infinity. The interquartile range will have a breakdown point of 25%. Intuitively, it make senses because if we inject $m$ values that are less than 25% of the sample, they might all end up in the 25% quartile or above the 75% quartile, avoiding any bad data in the interquartile. A breakdown point of 25% would mean at least one bad data point would end up in the interquartile range. 
 
-b) 
+b) Where ranked order of the data points is used to calculate the interquartile range, $MAD_n$ is calculated by:
 
+\begin{align*}
+
+MAD_n = \frac{Med | x_i - Med(x_i)|}{0.675}
+\end{algin*}
+
+We center all of the data points in a sample and center them about the medium of the sample. By finding the medium and dividing by 0.675, if our data sample is drawn from a Guassian distribution, $MAD_n$ will equal the standard deviation of the distribution. Where the interquartile range is based on the rank order of the sample, $MAD_n$ is based around the deviation around the median. This allows for the scale to be robust against injections of bad data and has a breakdown point of 50%.
+
+c) 
 ###Question 3
 
 a)
