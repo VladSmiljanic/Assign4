@@ -65,9 +65,8 @@ a) The finite sample breakdown point for the inter-quartile range would be $m=n/
 b) Where ranked order of the data points is used to calculate the interquartile range, $MAD_n$ is calculated by:
 
 \begin{align*}
-
 MAD_n = \frac{Med | x_i - Med(x_i)|}{0.675}
-\end{algin*}
+\end{align*}
 
 We center all of the data points in a sample and center them about the medium of the sample. By finding the medium and dividing by 0.675, if our data sample is drawn from a Guassian distribution, $MAD_n$ will equal the standard deviation of the distribution. Where the interquartile range is based on the rank order of the sample, $MAD_n$ is based around the deviation around the median. This allows for the scale to be robust against injections of bad data and has a breakdown point of 50%.
 
@@ -236,7 +235,6 @@ n <- 20
 x<-rnorm(n)
 
 boxplot(x)
-}
 ```
 
 The thick line is the median of the distribution while the top and bottom of the "box" are quartiles $Q_1$ and $Q_1$. The "whiskers" are the farthest points that are not outliers. Here they are defined as values within $(3/2)\times Q$. The points are data values that lie outside of the whiskers and values that are the same would be placed next to each other horizontally. 
@@ -251,7 +249,7 @@ The hat matrix H gives the fitted value of Y: $\hat Y = HY$. Our $X$ is a $n\tim
 H&=X(X'X)^{-1}X'\\
 HY&=X(X'X)^{-1}X'Y\\
 HY&=X\hat\beta\\
-HY&=\hatY\\
+HY&=\hat Y\\
 \end{align*}
 
 The trace of the H matrix requires knowledge of the properties for finding the trace of a matrix:
@@ -286,12 +284,35 @@ By decomposing the summation into diagonal and non-diagonal terms and dividing b
 \frac{h_{ii} }{h_{ii}}&= \frac{1}{h_{ii}}(h_{ii}^2+\sum_{j=1,j\ne i}^n h_{ij}^2)\\
 1 &= h_{ii}+\frac{\sum_{j=1,j\ne i}^n h_{ij}^2}{h_{ii}} \\
 h_{ii}&= 1 - \frac{\sum_{j=1,j\ne i}^n h_{ij}^2}{h_{ii}} \\
-h_{ii}\le 1 \\
+h_{ii}&\le 1 \\
 \end{align*}
 
 Therefore, $0 \le h_{ii} \le 1$.
 
-b)
+b) We know that $X'X = \sum^n_{i=1}x_ix_i'$ and that $X_{(-t)}X'_{-t}$ subtracts the $t^{th}$ observation from $X'X$ matrix. Therefore:
+
+\begin{align*}
+X'_{(-t)}X_({-t}) = X'X - x_tx'_t\\
+\end{align*}
+
+The Sherman-Morrison-Woodbury formula states $(A-UV')^{-1}=A^{-1}+A^{-1}U\left(I_m-V'A^{-1}U\right)^{-1}V'A^{-1}$ where $A$ is a $p \times p$ matrix and $U$ and $V$ are $p \times m$ matricies. From our equation above, we can state that $A = X'X$ and $U,V=x_t$ where m=1. We can use the Sherman-Morrison-Woodbury formula to solve for inverse of our equation:
+
+\begin{align*}
+(X_{(-t)}X'_({-t}))^{-1} &= (X'X - x_tx'_t)^{-1}\\
+&= (X'X)^{-1} + (X'X)^{-1}x_t(1 -x'_t(X'X)^{-1}x_t)^{-1}x'_t(X'X)^{-1}\\
+\end{align*}
+
+We know that $h_{ii}=x_i'(X'X)^{-1}x_i$.
+
+\begin{align*}
+(X_{(-t)}X'_{(-t)})^{-1} &= \frac{(X'X)^{-1} + (X'X)^{-1}x_tx'_t(X'X)^{-1}}{(1 -h_{tt})}\\
+\end{align*}
+
+c) Similarily, $X'Y = \sum^n_{i=1}x_iy'_i$. We can find $X'_{(-t)}Y_{(-t)}$ by subtracting the $t^{th}$ observation $x_ty'_t$:
+
+\begin{align*}
+X'_{(-t)}Y_({-t}) = X'Y - x_ty'_t\\
+\end{align*}
 
 ###Question 7
 
