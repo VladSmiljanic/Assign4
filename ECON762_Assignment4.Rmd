@@ -11,11 +11,11 @@ output:
 
 **a. Robustness**
 
-Robustness is the ability to resist the injection of bad data values. An estimator should respond to these small number of bad data values with smoothness. That is to say, it should only respond gradually to the injection of bad data values or small changes in the model. A robust estimator should have broad application for it to be consider useful.
+Robustness is the ability to resist the injection of bad data values. An estimator should respond to these small number of bad data values with smoothness. That is to say, it should only respond gradually to the injection of bad data values or small changes in the model. A robust estimator should have broad applications.
 
 **b. Masking**
 
-When outliers exist, using a non-robust method may result in the outliers going undetected due to the interaction of the method with the outliers. 
+When outliers exist, using a non-robust method may result in the outliers going undetected due to the interaction of the method with the outliers. These outliers would be "masking" themselves.
 
 **c. Sensitivity Curve and Influence Curve**
 
@@ -60,9 +60,13 @@ Where c will be the resistence parameter that is specified by the user. As $c\to
 
 ###Question 2
 
-a) The finite sample breakdown point for the inter-quartile range would be $m=n/4-1$ and will have a breakdown point of 25% (expressed in the limit $n\to\infty$). Due to the ranked order nature of calculating the interquartile range, values that are $\pm \infty$ will fall outside of the interquartile range. As the inter-quartile range is the 75% quartile minues the 25% quartile, injecting a quarter of the sample with bad data will breach at least one point in the inter-quartile range, causing the bias to go to infinity. The interquartile range will have a breakdown point of 25%. Intuitively, it make senses because if we inject $m$ values that are less than 25% of the sample, they might all end up in the 25% quartile or above the 75% quartile, avoiding any bad data in the interquartile. A breakdown point of 25% would mean at least one bad data point would end up in the interquartile range. 
+a) 
 
-b) Where ranked order of the data points is used to calculate the interquartile range, $MAD_n$ is calculated by:
+The finite sample breakdown point for the inter-quartile range would be $m=n/4-1$ and will have a breakdown point of 25% (expressed in the limit $n\to\infty$). Due to the ranked order nature of calculating the interquartile range, values that are $\pm \infty$ will fall outside of the interquartile range. As the inter-quartile range is the 75% quartile minues the 25% quartile, injecting a quarter of the sample with bad data will breach at least one point in the inter-quartile range, causing the bias to go to infinity. The interquartile range will have a breakdown point of 25%. Intuitively, it make senses because if we inject $m$ values that are less than 25% of the sample, they might all end up in the 25% quartile or above the 75% quartile, avoiding any bad data in the interquartile. A breakdown point of 25% would mean at least one bad data point would end up in the interquartile range. 
+
+b) 
+
+Where ranked order of the data points is used to calculate the interquartile range, $MAD_n$ is calculated by:
 
 \begin{align*}
 MAD_n = \frac{Med | x_i - Med(x_i)|}{0.675}
@@ -70,7 +74,9 @@ MAD_n = \frac{Med | x_i - Med(x_i)|}{0.675}
 
 We center all of the data points in a sample and center them about the medium of the sample. By finding the medium and dividing by 0.675, if our data sample is drawn from a Guassian distribution, $MAD_n$ will equal the standard deviation of the distribution. Where the interquartile range is based on the rank order of the sample, $MAD_n$ is based around the deviation around the median. This allows for the scale to be robust against injections of bad data and has a breakdown point of 50%.
 
-c) Rousseeuq and Croux's $Q_n$ is based on distance similar to interquartile range. It is a more efficient robust scale estimator than $MAD_n$, which suffers a drawback of discountinity with it's influence function. If we look at the location framework for the sample median we see that it will suffer from this same discountinuity:
+c) 
+
+Rousseeuq and Croux's $Q_n$ is based on distance similar to interquartile range. It is a more efficient robust scale estimator than $MAD_n$, which suffers a drawback of discountinity with it's influence function. If we look at the location framework for the sample median we see that it will suffer from this same discountinuity:
 \begin{align*}
 median {|x_i-x_j|;i<j}
 \end{align*}
@@ -81,7 +87,7 @@ This will have a desired breakdownpoint of 50% but still suffers from inefficien
 Q_n = d {|x_i-x_j|;i<j}_{(k)}
 \end{align*}
 
-Where $d$ is a constant factor and $k$ denotes the $k$th order statistic. 
+Where $d$ is a constant factor and $k$ denotes the $k^{th}$ order statistic. We find the absolute distance between all combinations of variables. We can then make a set of values where $i<j$ and order the set in ascending order. We then choose the $k^{th}$ term in the order. To find $k$, we calculate $k={[n/2]+1\choose 2}$ where $(n/2)$ will be be the integer portion. If $n=3$ then $k={[n/2]+1\choose 2}={1+1\choose 2}=1$ and we would select the first term in the ordered set to equal $Q_n$. You would multiple it by $d=2.21914$ to normalize.$Q_n$ is robust and highly efficient with an explicit formula. 
 
 ###Question 3
 
@@ -284,6 +290,8 @@ for (i in 1:5){
 
 ###Question 6
 
+a)
+
 The hat matrix H gives the fitted value of Y: $\hat Y = HY$. Our $X$ is a $n\times k$ matrix.
 
 \begin{align*}
@@ -330,7 +338,9 @@ h_{ii}&\le 1 \\
 
 Therefore, $0 \le h_{ii} \le 1$.
 
-b) We know that $X'X = \sum^n_{i=1}x_ix_i'$ and that $X_{(-t)}X'_{-t}$ subtracts the $t^{th}$ observation from $X'X$ matrix. Therefore:
+b) 
+
+We know that $X'X = \sum^n_{i=1}x_ix_i'$ and that $X_{(-t)}X'_{-t}$ subtracts the $t^{th}$ observation from $X'X$ matrix. Therefore:
 
 \begin{align*}
 X'_{(-t)}X_{(-t)} = X'X - x_tx'_t\\
@@ -349,14 +359,18 @@ We know that $h_{ii}=x_i'(X'X)^{-1}x_i$.
 (X_{(-t)}X'_{(-t)})^{-1} &= (X'X)^{-1}+\frac{(X'X)^{-1}x_tx'_t(X'X)^{-1}}{(1 -h_{tt})}\\
 \end{align*}
 
-c) Similarily, $X'Y = \sum^n_{i=1}x'_iy_i$. We can find $X'_{(-t)}Y_{(-t)}$ by subtracting the $t^{th}$ observation $x_ty'_t$:
+c) 
+
+Similarily, $X'Y = \sum^n_{i=1}x'_iy_i$. We can find $X'_{(-t)}Y_{(-t)}$ by subtracting the $t^{th}$ observation $x_ty'_t$:
 
 \begin{align*}
 X'_{(-t)}Y_{(-t)} = X'Y - x_ty_t\\
 \end{align*}
 
 
-d) Using the formula for OLS, we can estimate coefficients for data missing an observation
+d) 
+
+Using the formula for OLS, we can estimate coefficients for data missing an observation
 
 \begin{align*}
 \hat\beta_{(-t)} = (X'_{(-t)}X_({-t}))^{-1}X'_{(-t)}Y_{(-t)}\\
