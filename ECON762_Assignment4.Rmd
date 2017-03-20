@@ -1,9 +1,9 @@
 ---
 title: "ECON 762 Assignment 4"
 output:
-  html_document: default
-  html_notebook: default
   pdf_document: default
+  html_notebook: default
+  html_document: default
   word_document: default
 ---
 
@@ -257,7 +257,11 @@ boxplot(x)
 
 The thick line is the median of the distribution while the top and bottom of the "box" are quartiles $Q_1$ and $Q_1$. The "whiskers" are the farthest points that are not outliers. Here they are defined as values within $(3/2)\times Q$. The points are data values that lie outside of the whiskers and values that are the same would be placed next to each other horizontally. 
 
-b) The advantage for using a box and whisker plot is that it is a robust measurement of scale as it relies on the median values of the sample. Large data values that are
+b) 
+
+The advantage for using a box and whisker plot is that it is a robust measurement of scale as it relies on the median values of the sample. It is good tool to visualize the number of outliers and the size of the interquartile range in relation to those outliers. 
+
+If there are very large outliers, then it becomes a poor visualization tool, as the graphs become very small in relations to the location of these outliers. Though it is a robust meausre of scale through the use of the interquartile range, it will not be as robust as $MAD_n$ or $Q_n$.
 
 c) 
 
@@ -348,7 +352,7 @@ We know that $h_{ii}=x_i'(X'X)^{-1}x_i$.
 c) Similarily, $X'Y = \sum^n_{i=1}x'_iy_i$. We can find $X'_{(-t)}Y_{(-t)}$ by subtracting the $t^{th}$ observation $x_ty'_t$:
 
 \begin{align*}
-X'_{(-t)}Y_{(-t)} = X'Y - x'_ty_t\\
+X'_{(-t)}Y_{(-t)} = X'Y - x_ty_t\\
 \end{align*}
 
 
@@ -361,7 +365,7 @@ d) Using the formula for OLS, we can estimate coefficients for data missing an o
 We can replace the elements with the values we previously determined.
 
 \begin{align*}
-\hat\beta_{(-t)} &= \bigg((X'X)^{-1}+\frac{(X'X)^{-1}x_tx'_t(X'X)^{-1}}{(1 -h_{tt})}\bigg)(X'Y - x'_ty_t)\\
+\hat\beta_{(-t)} &= \bigg((X'X)^{-1}+\frac{(X'X)^{-1}x_tx'_t(X'X)^{-1}}{(1 -h_{tt})}\bigg)(X'Y - x_ty_t)\\
 &= (X'X)^{-1}X'Y + \frac{(X'X)^{-1}x_tx'_t(X'X)^{-1}}{(1 -h_{tt})}X'Y -(X'X)^{-1}x_ty_t-\frac{(X'X)^{-1}x_tx'_t(X'X)^{-1}}{(1 -h_{tt})}x_ty_t\\
 \end{align*}
 
