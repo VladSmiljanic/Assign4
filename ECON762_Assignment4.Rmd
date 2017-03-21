@@ -1,10 +1,10 @@
 ---
-title: "ECON 762 Assignment 4"
+title: 'ECON 762 Assignment #4'
+author: "Vladimir Smiljanic"
+date: '2017-03-20'
 output:
   pdf_document: default
-  html_notebook: default
   html_document: default
-  word_document: default
 ---
 
 ###Question 1
@@ -15,37 +15,39 @@ Robustness is the ability to resist the injection of bad data values. An estimat
 
 **b. Masking**
 
-When outliers exist, using a non-robust method may result in the outliers going undetected due to the interaction of the method with the outliers. These outliers would be "masking" themselves.
+When outliers exist, using a non-robust method may result in the outliers going undetected due to the interaction of the method with the outliers. These outliers would be hiding or "masking" themselves.
 
 **c. Sensitivity Curve and Influence Curve**
 
-Sensitivity curve displays whether an estimator is bounded when an outlier is inputted into the sample data. It displays the bias of the statistic when "bad data" is injected into the sample. The outlier can be an arbitrary number within a range of $\pm \infty$ and will help us determine the robustness of an estimator. An unbounded sensitivity curve is undesired as it reveals a non-robust estimator. 
+Sensitivity curve displays whether an estimator is bounded when an outlier is inputted into the sample data. It displays the bias of the statistic when "bad data" is injected into the sample. The outlier can be an arbitrary number within a range of $\pm \infty$ and will help us determine the robustness of a statistic. An unbounded sensitivity curve is undesired as it reveals a non-robust statistic. 
 
-The influence function of an estimator is the asymptotic verson of the sensitivity curve. It is the approximation of an estimator as $n\to\infty$ when a small fraction of the sample , $\epsilon$, are identical outliers. A contamination neighbourhood is a convex combination of the distribution used to produce the the asymptotic value of the estimator and a point mass at $x_0$. The influence function is the limit of the fraction of the convex distribution that is based on this point mass, as we approach the fraction from the right (ie $\epsilon >0$).
+The influence function of an estimator is the asymptotic version of the sensitivity curve. It is the approximation of an estimator as $n\to\infty$ when a small fraction of the sample , $\epsilon$, are identical outliers. A contamination neighbourhood is a convex combination of the distribution used to produce the asymptotic value of the estimator and a point mass at $x_0$. The influence function is the limit of the fraction of the convex distribution that is based on this point mass, as we approach the fraction from the right (ie $\epsilon >0$).
 
 \begin{align*}
 IF_{\hat\theta}(x_0,F)&=\lim_{\epsilon\downarrow0}\frac{\hat\theta_\infty\left((1-\epsilon)
 F+\epsilon\delta_{x_0}\right)-\hat\theta_\infty(F)}{\epsilon}\\
 \end{align*}
 
-It may be conisdered the limit version of the sensitivity curve.
+It may be considered the limit version of the sensitivity curve.
 
 **d. Finite-Sample Breakdown Point**
 
-The point at which including one additional 'corrupted' data point into a sample will result in the bias between the corrupted and uncorrupted samples go to infinity. 
+The point at which including one additional 'corrupted' data point into a sample will result in the bias going to infinity when comparing the corrupted and uncorrupted samples. 
 
-X is our sample and X' is our corrupted sample when replacing $m$ data points with arbitratary values (including $\pm \infty$ to ecompass extreme values). If our estimator $\hat \theta = f(X)$ then our finite-sampling breakdown point is:
+X is our sample and X' is our corrupted sample when replacing $m$ data points with arbitrary values (including $\pm \infty$ to encompass extreme values). If our estimator $\hat \theta = f(X)$ then our finite-sampling breakdown point is:
 
 \begin{align*}
 \min\left\{\frac{m}{n};\hbox{bias}(m;f(X'),X)
     \hbox{ is infinite}\right\}
 \end{align*}
 
-When m=1, our breakdown point would be zero. Injecting one data point with an arbitrary value would have a large effect on $\hat \theta$ and cause the estimator to `break down`. The highest possible breakdown point is is one less than half the sample size or a breakdown point of 50%. 
+When m=1, our breakdown point would be zero. Injecting one data point with an arbitrary value would have a large effect on $\hat \theta$ and cause the estimator to "break down". The highest possible breakdown point is one less than half the sample size or a breakdown point of 50%. 
+
+\newpage
 
 **e. Huber (1964) M-Estimator**
 
-Where estimating the median through the minimizing the absolute values provides for a robust (bounded) estimator it is not efficient due to discontunity problems at $\mu = 0$.The variance of the median is much higher than that of the mean and especially if no outliers present. As a result, the M-Estimator was proposed to combat this problem. It has the functional form:
+Where estimating the median through the minimizing the absolute values provides for a robust (bounded) estimator, it is not efficient due to discontinuity problems at $\mu = 0$.The variance of the median is much higher than that of the mean and especially if no outliers present. As a result, the M-Estimator was proposed to combat this problem. It has the functional form:
 
 \begin{align*}
 \label{huber rho_c}
@@ -56,13 +58,13 @@ Where estimating the median through the minimizing the absolute values provides 
 \right..
 \end{align*}
 
-Where c will be the resistence parameter that is specified by the user. As $c\to 0$, the efficiency of the estimator decreases. The rule-of-thumb is $c=1.345\times s$ where s a robust measure of scale. This would allow the efficiency is almost as good as mean (905%) while also being robust.
+Where c will be the resistance parameter that is specified by the user. As $c\to 0$, the efficiency of the estimator decreases. The rule-of-thumb is $c=1.345\times s$ where s a robust measure of scale. This would allow the efficiency is almost as good as mean (95%) while also being robust.
 
 ###Question 2
 
 a) 
 
-The finite sample breakdown point for the inter-quartile range would be $m=n/4-1$ and will have a breakdown point of 25% (expressed in the limit $n\to\infty$). Due to the ranked order nature of calculating the interquartile range, values that are $\pm \infty$ will fall outside of the interquartile range. As the inter-quartile range is the 75% quartile minues the 25% quartile, injecting a quarter of the sample with bad data will breach at least one point in the inter-quartile range, causing the bias to go to infinity. The interquartile range will have a breakdown point of 25%. Intuitively, it make senses because if we inject $m$ values that are less than 25% of the sample, they might all end up in the 25% quartile or above the 75% quartile, avoiding any bad data in the interquartile. A breakdown point of 25% would mean at least one bad data point would end up in the interquartile range. 
+The finite sample breakdown point for the inter-quartile range would be $m=n/4-1$ and will have a breakdown point of 25% (expressed in the limit $n\to\infty$). Due to the ranked order of calculating the interquartile range, values that are $\pm \infty$ will fall outside of the interquartile range. As the inter-quartile range is the 75% quartile minus the 25% quartile, injecting a quarter of the sample with bad data will breach at least one point in the inter-quartile range, causing the bias to go to infinity. The interquartile range will have a breakdown point of 25%. A breakdown point of 25% would mean at least one bad data point would end up in the interquartile range. 
 
 b) 
 
@@ -72,22 +74,22 @@ Where ranked order of the data points is used to calculate the interquartile ran
 MAD_n = \frac{Med | x_i - Med(x_i)|}{0.675}
 \end{align*}
 
-We center all of the data points in a sample and center them about the medium of the sample. By finding the medium and dividing by 0.675, if our data sample is drawn from a Guassian distribution, $MAD_n$ will equal the standard deviation of the distribution. Where the interquartile range is based on the rank order of the sample, $MAD_n$ is based around the deviation around the median. This allows for the scale to be robust against injections of bad data and has a breakdown point of 50%.
+We center all of the data points in a sample about the medium. By finding the medium and dividing by 0.675, if our data sample is drawn from a Guassian distribution, $MAD_n$ will equal the standard deviation of the distribution. Where the interquartile range is based on the rank order of the sample, $MAD_n$ is based around the deviation around the median. This allows for the scale to be robust against injections of bad data and has a breakdown point of 50%.
 
 c) 
 
-Rousseeuq and Croux's $Q_n$ is based on distance similar to interquartile range. It is a more efficient robust scale estimator than $MAD_n$, which suffers a drawback of discountinity with it's influence function. If we look at the location framework for the sample median we see that it will suffer from this same discountinuity:
+Rousseeuw and Croux's $Q_n$ is based on distance similar to interquartile range. It is a more efficient robust scale estimator than $MAD_n$, which suffers a drawback of discontinuity with it's influence function. If we look at the location framework for the sample median we see that it will suffer from this same discontinuity:
 \begin{align*}
 median {|x_i-x_j|;i<j}
 \end{align*}
 
-This will have a desired breakdownpoint of 50% but still suffers from inefficiency.$Q_n$ is a more efficient estimator of scale than the location framework produces while still have a 50% breakdown point: 
+This will have a desired breakdown point of 50% but still suffers from inefficiency. $Q_n$ is a more efficient estimator of scale than the location framework produces while still have a 50% breakdown point: 
 
 \begin{align*}
 Q_n = d {|x_i-x_j|;i<j}_{(k)}
 \end{align*}
 
-Where $d$ is a constant factor and $k$ denotes the $k^{th}$ order statistic. We find the absolute distance between all combinations of variables. We can then make a set of values where $i<j$ and order the set in ascending order. We then choose the $k^{th}$ term in the order. To find $k$, we calculate $k={[n/2]+1\choose 2}$ where $(n/2)$ will be be the integer portion. If $n=3$ then $k={[n/2]+1\choose 2}={1+1\choose 2}=1$ and we would select the first term in the ordered set to equal $Q_n$. You would multiple it by $d=2.21914$ to normalize.$Q_n$ is robust and highly efficient with an explicit formula. 
+Where $d$ is a constant factor and $k$ denotes the $k^{th}$ order statistic. We find the absolute distance between all combinations of observations. We can then make a set of values where $i<j$ and order the set in ascending order. We then choose the $k^{th}$ term in the order. To find $k$, we calculate $k={[n/2]+1\choose 2}$ where $(n/2)$ will be the integer portion. If $n=3$ then $k={[n/2]+1\choose 2}={1+1\choose 2}=1$ and we would select the first term in the ordered set to equal $Q_n$. You would multiple it by $d=2.21914$ to normalize. $Q_n$ is robust and highly efficient with an explicit formula. 
 
 ###Question 3
 
@@ -120,32 +122,34 @@ plot(e0, sc.coef,
      type="l")
 ```
 
-b) The key feature of the sensitivity curve is to help determine the robustness of an estimation method. We wish to have boundness in the sensitivity curve to determine if the estimator is robust and can handle injection of arbtirary data values. The OLS estimator has a sensitivity curve that is linear when injecting $x0$ over the pre-determined interval. This shows that our bias will go to infinity if we inject a data value of infinity. The OLS estimator is a non-robust estimator.
+b) 
 
-We should care because outliers can effect our estimator by large magnitudes and producing a method where there is little confidence in the estimator.
+The key feature of the sensitivity curve is to help determine the robustness of an estimation method. We wish to have boundedness in the sensitivity curve to determine if the estimator is robust and can handle injection of arbitrary data values. The OLS estimator has a sensitivity curve that is linear when injecting $x0$ over the pre-determined interval. This shows that our bias will go to infinity if we inject a data value of infinity. The OLS estimator is a non-robust estimator.
 
+We should care because outliers can effect our estimator by large magnitudes and produce a method where there is little confidence in the estimator.
+
+\newpage
 ###Question 4
 
 a)
 
-```{r}
+```{r, message=FALSE}
 set.seed(42)
 require(robustbase)
 n <- 100
 x<-rnorm(n)
-mean.x<-mean(x)
-med.x<-median(x)
-sd.x<-sd(x)
-iqr.x<-IQR(x)
-mad.x<-mad(x)
-q.x<-Qn(x)
+mean(x)
+median(x)
+sd(x)
+IQR(x)
+mad(x)
+Qn(x)
 ```
 
 b)
 
-```{r}
+```{r,message=FALSE}
 set.seed(42)
-require(robustbase)
 n <- 100
 x<-rnorm(n)
 x0.seq<-seq(from=-10,to=10,by=1)
@@ -189,7 +193,6 @@ c)
 
 ```{r}
 set.seed(42)
-require(robustbase)
 n <- 20
 x<-rnorm(n)
 mean.x<-mean(x)
@@ -227,6 +230,7 @@ knitr::kable(values)
 
 From looking at the table, the non-robust method values are much more sensitive to influence by the mass points. We can also see from the table, the breakdown points for the estimators with $Q_n$ being the only one to remain robust when influence exerted on half the sample.
 
+\newpage
 d)
 
 ```{r}
@@ -240,19 +244,25 @@ x0<-1000
 for (i in 1:5){
   x[1:i]<-x0
   t.t<-(x-mean(x))/sd(x)
+  print(paste("M = ",i))
+  print("Non-Robust Outliers")
   print(subset(x,abs(t.t)>3.0))
   t.r<-(x-median(x))/mad(x)
+  print("Robust Outliers")
   print(subset(x,abs(t.r)>3.0))
 }
 
 
 ```
 
-We can see that the non-robust three-sigma edit rule results in the value -2.656 being masked when compared to the robust method. Once we start increasing the number of point mass values in the sample, all of the point masses are masked when using the non-robust method for $m\ge2$. We can see that the non-robust method will resulting in masking as we inject bad data values into the sample. 
+We can see that the non-robust three-sigma edit rule results in the value -2.656 being masked when compared to the robust method when m=1. Once we start increasing the number of point mass values in the sample, all of the point masses are masked when using the non-robust method for $m\ge2$. We can see that the non-robust method will resulting in masking as we inject bad data values into the sample. 
 
+\newpage
 ###Question 5
 
-a) A box and whisker plot is a method that defines what points would be considered outliers and displays the median, interquartile range, the boundary for outliers and the outliers themselves. It defines 
+a) 
+
+A box and whisker plot is a method that defines what points would be considered outliers and displays the median, interquartile range, the boundary for outliers and the outliers themselves. It is displayed as: 
 
 ```{r}
 n <- 20
@@ -261,32 +271,34 @@ x<-rnorm(n)
 boxplot(x)
 ```
 
-The thick line is the median of the distribution while the top and bottom of the "box" are quartiles $Q_1$ and $Q_1$. The "whiskers" are the farthest points that are not outliers. Here they are defined as values within $(3/2)\times Q$. The points are data values that lie outside of the whiskers and values that are the same would be placed next to each other horizontally. 
+The thick line is the median of the distribution while the bottom and top of the "box" are quartiles $Q_1$ and $Q_3$ respectively. The "whiskers" are the farthest points that are not outliers. Here they are defined as values within $(3/2)$ of the quartiles. The points are the outlier data values that lie outside of the whiskers and values that are the same would be placed next to each other horizontally. 
 
 b) 
 
 The advantage for using a box and whisker plot is that it is a robust measurement of scale as it relies on the median values of the sample. It is good tool to visualize the number of outliers and the size of the interquartile range in relation to those outliers. 
 
-If there are very large outliers, then it becomes a poor visualization tool, as the graphs become very small in relations to the location of these outliers. Though it is a robust meausre of scale through the use of the interquartile range, it will not be as robust as $MAD_n$ or $Q_n$.
+If there are very large outliers, then it becomes a poor visualization tool, as the graphs become very small in relations to the location of these outliers. Though it is a robust measure of scale through the use of the interquartile range, it will not be as robust as $MAD_n$ or $Q_n$.
 
 c) 
 
 ```{r}
 set.seed(42)
-require(robustbase)
 n <- 20
 x<-rnorm(n)
 
 x0<-1000
-bp<-boxplot(x)
-print(bp$out)
+print("M = 0, Boxplot Outliers")
+
+print(boxplot(x,plot=FALSE)$out)
 
 for (i in 1:5){
   x[1:i]<-x0
-  bp<-boxplot(x)
-  print(bp$out)
+  print(paste("M = ",i,", Boxplot Outliers"))
+  print(boxplot(x,plot=FALSE)$out)
 }
 ```
+
+I did not provide the plots for the box plots as the size of the outliers that were injected made for a poor visualization tool. Much like the non-robust estimator, at $m=1$, the box plot will detect one outlier. As we inject additional values, then it will detect -2.656 when $m=1$ before it no longer becoming an outlier. At $m=5$ we detect one less outlier, indicating that the box plot is not as robust as our robust sigma-3 edit as one is being masked.
 
 ###Question 6
 
@@ -346,7 +358,7 @@ We know that $X'X = \sum^n_{i=1}x_ix_i'$ and that $X_{(-t)}X'_{-t}$ subtracts th
 X'_{(-t)}X_{(-t)} = X'X - x_tx'_t\\
 \end{align*}
 
-The Sherman-Morrison-Woodbury formula states $(A-UV')^{-1}=A^{-1}+A^{-1}U\left(I_m-V'A^{-1}U\right)^{-1}V'A^{-1}$ where $A$ is a $p \times p$ matrix and $U$ and $V$ are $p \times m$ matricies. From our equation above, we can state that $A = X'X$ and $U,V=x_t$ where m=1. We can use the Sherman-Morrison-Woodbury formula to solve for inverse of our equation:
+The Sherman-Morrison-Woodbury formula states $(A-UV')^{-1}=A^{-1}+A^{-1}U\left(I_m-V'A^{-1}U\right)^{-1}V'A^{-1}$ where $A$ is a $p \times p$ matrix and $U$ and $V$ are $p \times m$ matrices. From our equation above, we can state that $A = X'X$ and $U,V=x_t$ where m=1. We can use the Sherman-Morrison-Woodbury formula to solve for inverse of our equation:
 
 \begin{align*}
 (X_{(-t)}X'_({-t}))^{-1} &= (X'X - x_tx'_t)^{-1}\\
@@ -361,7 +373,7 @@ We know that $h_{ii}=x_i'(X'X)^{-1}x_i$.
 
 c) 
 
-Similarily, $X'Y = \sum^n_{i=1}x'_iy_i$. We can find $X'_{(-t)}Y_{(-t)}$ by subtracting the $t^{th}$ observation $x_ty'_t$:
+Similarly, $X'Y = \sum^n_{i=1}x'_iy_i$. We can find $X'_{(-t)}Y_{(-t)}$ by subtracting the $t^{th}$ observation $x_ty'_t$:
 
 \begin{align*}
 X'_{(-t)}Y_{(-t)} = X'Y - x_ty_t\\
